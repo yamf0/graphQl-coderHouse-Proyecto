@@ -8,19 +8,19 @@ import carritoDao from "./DAO/carritoDao.js";
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
-  type Carrito {
-    id: ID!
-    timestamp: String,
-    productos: [String]
-  }
+    type Carrito {
+        id: ID!
+        timestamp: String,
+        productos: [String]
+    }
 
-  input CarritoInput {
-    id: ID!
-  }
+    type Query {
+        getCarritos: [Carrito]
+    }
 
-  type Query {
-    getCarritos: [Carrito]
-  }
+    type Mutation {
+        createCarrito: Carrito
+    }
 
 `);
 
@@ -29,6 +29,9 @@ var root = {
     getCarritos: async () => {
     return await carritoDao.getCarritos()
   },
+    createCarrito: async () => {
+        return await carritoDao.createCarrito()
+    }
 };
 
 var app = express();

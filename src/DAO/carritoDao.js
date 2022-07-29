@@ -17,11 +17,15 @@ class carritoDao{
     }
 
 
-    static async createCarrito({carritoDatos}){
+    static async createCarrito(){
         const id =  crypto.randomBytes(10).toString('hex');
-
+        const timestamp = Date.now()
         try{
-            const newCarrito = new carritoDto(carritoDatos)
+            var newCarrito = new carritoDto({
+                id, 
+                timestamp,
+                productos: []
+            })
         }catch(e){
             console.log(e)
             return 1

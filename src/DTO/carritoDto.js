@@ -3,10 +3,10 @@ class carritoDto{
     constructor(carritoData){
         this.id = carritoData.id
         this.timestamp = carritoData.timestamp
-        this.products = [] 
+        this.productos = [] 
 
-        carritoData.products.forEach(prod => {
-            this.products.push(
+        carritoData.productos.forEach(prod => {
+            this.productos.push(
                 {
                     'nombre': prod['nombre'],
                     'id': prod['id'],
