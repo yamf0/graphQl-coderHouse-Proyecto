@@ -11,7 +11,7 @@ class carritoDao{
     static async getCarrito({id}){
         const carrito = await carritoMap.filter((car) => car.id === id)
         if(carrito){
-            return carrito
+            return carrito[0]
         }
         return 1
     }
@@ -34,6 +34,56 @@ class carritoDao{
         carritoMap.push(newCarrito)
 
         return newCarrito
+    }
+
+    static async deleteCarrito({id}){
+        const index = await carritoMap.findIndex((carrito) => {
+            return carrito.id === id
+        })
+        if(index == -1){
+            throw new Error(`Carrito with id ${id} not found`)
+        }
+        const carritoDeleted = carritoMap.splice(index, 1)
+
+        return carritoDeleted[0]
+    }
+
+    static async getProductos({id}){
+        const carrito = await carritoMap.filter((carrito) => {
+            return carrito.id === id
+        })[0]
+        if(carrito){
+            return carrito.productos
+        }
+        throw new Error(`Carrito with id ${id} not found`)
+    }
+
+    static async addProductoToCar({id, producto}){
+        const carrito = await carritoMap.filter((carrito) => {
+            return carrito.id === id
+        })[0]
+        if(carrito){
+            carrito.productos.push(producto)
+            return carrito
+        }
+        throw new Error(`Carrito with id ${id} not found`)
+    }
+    static async deleteProductoFromCar({id, producto}){
+        const carrito = await carritoMap.filter((carrito) => {
+            return carrito.id === id
+        })[0]
+        if(carrito){
+            const index = await carrito.productos.findIndex((prod) => {
+                return prod.id === producto.id
+            })
+            if(index != -1){
+                const productoDeleted = carrito.productos.splice(index, 1)
+                return productoDeleted[0]
+            }
+
+            
+        }
+        throw new Error(`Carrito with id ${id} not found`)
     }
 
 }

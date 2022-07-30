@@ -1,0 +1,16 @@
+
+getCarritos 
+{
+    getCarritos{
+      id, timestamp, productos
+    }
+}
+  
+
+AddCarrito
+
+mutation addCarrito {
+  createCarrito {
+    id
+  }
+}

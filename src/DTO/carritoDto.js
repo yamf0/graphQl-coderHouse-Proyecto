@@ -28,7 +28,7 @@ const carritoMap = [
     {
         id: "carrito_1",
         timestamp: "123124",
-        productos: ["qwe","wewe"]
+        productos: [{id: "q"}, {id: "b"}]
     }
 ]
 

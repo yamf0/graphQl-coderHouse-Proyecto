@@ -3,7 +3,7 @@ import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
 
 
-import carritoDao from "./DAO/carritoDao.js";
+import carritoControllers from "./controllers/carritoController.js";
 
 
 // Construct a schema, using GraphQL schema language
@@ -11,28 +11,36 @@ var schema = buildSchema(`
     type Carrito {
         id: ID!
         timestamp: String,
-        productos: [String]
+        productos: [Producto]
+    }
+
+    type Producto {
+        id: ID!
+    }
+
+    input inputProducto{
+        id: ID!
     }
 
     type Query {
         getCarritos: [Carrito]
+        getCarrito(id: ID!): Carrito
+        getProductos(id: ID!): [Producto]
     }
 
     type Mutation {
         createCarrito: Carrito
+        deleteCarrito(id: ID!): Carrito!
+        addProducto(id: ID!, producto: inputProducto!): Carrito
+        deleteProducto(id: ID!, producto: inputProducto!): Producto
     }
 
 `);
 
 // The root provides a resolver function for each API endpoint
 var root = {
-    getCarritos: async () => {
-    return await carritoDao.getCarritos()
-  },
-    createCarrito: async () => {
-        return await carritoDao.createCarrito()
-    }
-};
+    ...carritoControllers
+}
 
 var app = express();
 app.use('/graphql', graphqlHTTP({
