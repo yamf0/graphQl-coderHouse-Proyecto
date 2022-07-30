@@ -16,15 +16,15 @@ var carritoControllers = {
         return await carritoDao.deleteCarrito({id})
     },
 
-    getProductos: async ({id}) => {
+    getProductosInCar: async ({id}) => {
         return await carritoDao.getProductos({id})
     },
 
-    addProducto: async ({id, producto}) => {
+    addProductoInCar: async ({id, producto}) => {
         return await carritoDao.addProductoToCar({id, producto})
     },
     
-    deleteProducto: async ({id, producto}) => {
+    deleteProductoInCar: async ({id, producto}) => {
         return await carritoDao.deleteProductoFromCar({id, producto})
     }
 };

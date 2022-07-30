@@ -1,4 +1,7 @@
 import { carritoDto, carritoMap } from "../DTO/carritoDto.js";
+
+import productoDao from "./productoDao.js";
+
 import crypto from 'crypto'
 
 
@@ -63,7 +66,12 @@ class carritoDao{
             return carrito.id === id
         })[0]
         if(carrito){
-            carrito.productos.push(producto)
+            try{
+                var prod = await productoDao.getProducto(producto)
+            }catch(e){
+                throw new Error(`Producto with id ${producto} not found`)
+            }
+            carrito.productos.push(prod)
             return carrito
         }
         throw new Error(`Carrito with id ${id} not found`)

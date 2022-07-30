@@ -1,16 +1,49 @@
-
-getCarritos 
-{
-    getCarritos{
-      id, timestamp, productos
-    }
-}
-  
-
-AddCarrito
-
 mutation addCarrito {
   createCarrito {
     id
+  }
+}
+
+mutation deleteCarrito{
+  deleteCarrito(id: "1d1de56fe25f74aaf781"){
+    id
+  }
+}
+
+mutation addProducto{
+  addProducto(id: "carrito_1", producto: {id: "z"}){
+    id, timestamp,
+    productos{
+      id
+    }
+  }
+}
+
+mutation deleteProducto{
+  deleteProducto(id: "carrito_1", producto: {id: "b"}){
+    id
+  }
+}
+
+query getProductos{
+  getProductos(id: "carrito_1"){
+    id
+  }
+}
+
+query getCarrito {
+  getCarrito(id: "carrito_1"){
+    id, timestamp,
+    productos{
+      id
+    }
+  }
+}
+query getCarritos{
+  getCarritos{
+    id, timestamp,
+    productos{
+      id
+    }
   }
 }

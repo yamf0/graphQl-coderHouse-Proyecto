@@ -28,7 +28,15 @@ const carritoMap = [
     {
         id: "carrito_1",
         timestamp: "123124",
-        productos: [{id: "q"}, {id: "b"}]
+        productos: [{
+            id: '1',
+            nombre: "Perro",
+            timestamp: "123123",
+            descripcion: "nada",
+            precio: 12.2,
+            stock: 50,
+            codigo: "ASDQWE"
+        }]
     }
 ]
 

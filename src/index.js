@@ -4,42 +4,71 @@ import { buildSchema } from "graphql";
 
 
 import carritoControllers from "./controllers/carritoController.js";
-
+import productoController from "./controllers/productoController.js";
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
     type Carrito {
         id: ID!
-        timestamp: String,
+        timestamp: String
         productos: [Producto]
     }
 
     type Producto {
         id: ID!
+        timestamp: String
+        nombre : String!
+        precio : Float!
+        codigo : String!
+        stock : Int!
+        descripcion : String
     }
 
-    input inputProducto{
+    input inputProducto {
+        nombre : String!
+        precio : Float!
+        codigo : String!
+        stock : Int!
+        descripcion : String
+    }
+
+    input inputUpdateProducto{
+        nombre : String
+        precio : Float
+        codigo : String
+        stock : Int
+        descripcion : String
+    }
+    input inputProductoId{
         id: ID!
     }
 
     type Query {
         getCarritos: [Carrito]
         getCarrito(id: ID!): Carrito
-        getProductos(id: ID!): [Producto]
+        getProductosInCar(id: ID!): [Producto]
+        
+        getProductos: [Producto]
+        getProducto(id: ID!): Producto!
     }
 
     type Mutation {
         createCarrito: Carrito
         deleteCarrito(id: ID!): Carrito!
-        addProducto(id: ID!, producto: inputProducto!): Carrito
-        deleteProducto(id: ID!, producto: inputProducto!): Producto
+        addProductoInCar(id: ID!, producto: inputProductoId!): Carrito
+        deleteProductoInCar(id: ID!, producto: inputProductoId!): Producto
+        
+        createProducto(data: inputProducto!): Producto
+        deleteProducto(id: ID!): Producto!
+        updateProducto(id: ID!, data: inputUpdateProducto!): Producto!
     }
 
 `);
 
 // The root provides a resolver function for each API endpoint
 var root = {
-    ...carritoControllers
+    ...carritoControllers,
+    ...productoController
 }
 
 var app = express();
